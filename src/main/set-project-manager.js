@@ -15,6 +15,5 @@ function setProjectManager(event, taskId) {
     // Optical character recognition
     console.log('OCR');
   event.returnValue = 'Set project manager -Done';
-}
 
 module.exports = setProjectManager;
