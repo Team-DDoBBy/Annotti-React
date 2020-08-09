@@ -1,11 +1,11 @@
-function alertError(msg, detail){
-  const {remote} = window.require('electron')
+function alertError(msg, detail) {
+  const { remote } = require('electron');
   remote.dialog.showMessageBox({
-    type:'error',
-    title:'Error',
+    type: 'error',
+    title: 'Error',
     message: msg,
-    detail: detail
-  })
+    detail: detail,
+  });
 }
-  
-module.exports = { alertError }
+
+module.exports = { alertError };

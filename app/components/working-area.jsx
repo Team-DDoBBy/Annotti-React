@@ -1,14 +1,13 @@
 import React from 'react';
-import '../app.global.css';
 import LabelMenu from './labels';
 import { Breadcrumb } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { imgExtensions } from '../utils/exts';
 import folderImg from '../imgs/folder.png';
 
-const fs = window.require('fs');
+const fs = require('fs');
 const path = require('path');
-const { remote } = window.require('electron');
+const { remote } = require('electron');
 
 function TabList() {
   // 열려있는 탭 목록

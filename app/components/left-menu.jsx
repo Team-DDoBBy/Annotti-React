@@ -1,5 +1,4 @@
 import React from 'react';
-import '../app.global.css';
 import folderImg from '../imgs/folder.png';
 import analysisImg from '../imgs/analysis.png';
 import saveImg from '../imgs/save.png';

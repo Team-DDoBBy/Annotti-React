@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { Input, Button, Select } from 'antd';
-import '../app.global.css';
-import Classification from './classification';
-
-const { remote, ipcRenderer } = window.require('electron');
 const { Option } = Select;
-const { alertError } = require('../utils/alert.js');
+const { remote, ipcRenderer } = require('electron');
+
+import routes from '../constants/routes.json';
+import alertError from '../utils/alert.js';
 
 function ProjectName(props) {
   return (
@@ -23,7 +23,12 @@ function ProjectName(props) {
 function SelectTask(props) {
   return (
     <div id="select-task-div">
-      <Select id="select-task" defaultValue="None" onChange={props.customChangeEvent}>
+      <Select
+        id="select-task"
+        defaultValue="None"
+        style={{ width: '200px' }}
+        onChange={props.customChangeEvent}
+      >
         <Option value="None" disabled>
           Select task to annotate
         </Option>
@@ -46,9 +51,13 @@ function SelectDirsButton(props) {
 
 function CreateProjectButton(props) {
   return (
-    <Button type="primary" className="create-project" onClick={props.customClickEvent}>
+    <Link
+      to={routes.CLASSIFICATION}
+      className="create-project-btn"
+      onClick={props.customClickEvent}
+    >
       Create Project
-    </Button>
+    </Link>
   );
 }
 
@@ -86,25 +95,17 @@ class CreateProject extends React.Component {
     else {
       ipcRenderer.sendSync('setProjectManager', this.taskId);
       remote.getGlobal('projectManager').setWorkingDirectory(this.workingDirectory);
-      ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-      if (this.taskId === 'IC') {
-        ReactDOM.render(<Classification />, document.getElementById('root'));
-      } else {
-        console.log('Other than classification');
-      }
     }
   }
 
   render() {
     return (
       <div className="create-project">
-        <header className="create-project-header">
-          <h1>Annotti</h1>
-          <ProjectName customChangeEvent={this.setProjectName} />
-          <SelectTask customChangeEvent={this.selectTask} />
-          <SelectDirsButton customClickEvent={this.selectDirs} />
-          <CreateProjectButton customClickEvent={this.clickCreateProjectButton} />
-        </header>
+        <h1>Annotti</h1>
+        <ProjectName customChangeEvent={this.setProjectName} />
+        <SelectTask customChangeEvent={this.selectTask} />
+        <SelectDirsButton customClickEvent={this.selectDirs} />
+        <CreateProjectButton customClickEvent={this.clickCreateProjectButton} />
       </div>
     );
   }

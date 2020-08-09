@@ -18,18 +18,17 @@ if (shouldIncludeLogger) {
   });
   middleware.push(logger);
 }
+
 export const configuredStore = (initialState) => {
-  // Create Store
   const store = configureStore({
     reducer: rootReducer,
     middleware,
     preloadedState: initialState,
   });
+
   if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept(
-      './rootReducer',
-      // eslint-disable-next-line global-require
-      () => store.replaceReducer(require('./rootReducer').default)
+    module.hot.accept('./rootReducer', () =>
+      store.replaceReducer(require('./rootReducer').default)
     );
   }
   return store;

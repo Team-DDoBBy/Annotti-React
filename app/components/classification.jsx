@@ -1,5 +1,4 @@
 import React from 'react';
-import '../app.global.css';
 import LeftMenu from './left-menu';
 import WorkingArea from './working-area';
 
