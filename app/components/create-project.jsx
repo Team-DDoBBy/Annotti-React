@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
 import { Input, Button, Select } from 'antd';
 const { Option } = Select;
 const { remote, ipcRenderer } = require('electron');
 
-import routes from '../constants/routes.json';
+import Classification from './classification';
+import Detection from './detection';
 import alertError from '../utils/alert.js';
 
 function ProjectName(props) {
@@ -50,22 +50,11 @@ function SelectDirsButton(props) {
 }
 
 function CreateProjectButton(props) {
-  if (props.taskId == 'IC')
-    return (
-      <Link
-        to={routes.CLASSIFICATION}
-        className="create-project-btn"
-        onClick={props.customClickEvent}
-      >
-        Create Project
-      </Link>
-    );
-  else if (props.taskId == 'OD')
-    return (
-      <Link to={routes.DETECTION} className="create-project-btn" onClick={props.customClickEvent}>
-        Create Project
-      </Link>
-    );
+  return (
+    <Button type="primary" className="create-project-btn" onClick={props.customClickEvent}>
+      Create Project
+    </Button>
+  );
 }
 
 class CreateProject extends React.Component {
@@ -102,6 +91,14 @@ class CreateProject extends React.Component {
     else {
       ipcRenderer.sendSync('setProjectManager', this.taskId);
       remote.getGlobal('projectManager').setWorkingDirectory(this.workingDirectory);
+      ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+      if (this.taskId === 'IC') {
+        ReactDOM.render(<Classification />, document.getElementById('root'));
+      } else if (this.taskId == 'OD') {
+        ReactDOM.render(<Detection />, document.getElementById('root'));
+      } else {
+        console.log('Other than classification');
+      }
     }
   }
 

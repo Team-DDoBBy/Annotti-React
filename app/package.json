@@ -5,9 +5,9 @@
   "description": "Data annotation tool for deep learning",
   "main": "./main.prod.js",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
+    "name": "Team-DDoBBy",
+    "email": "ddobbyisfree@gmail.com",
+    "url": "https://github.com/Team-DDoBBy/Annotti-React"
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
