@@ -50,15 +50,22 @@ function SelectDirsButton(props) {
 }
 
 function CreateProjectButton(props) {
-  return (
-    <Link
-      to={routes.CLASSIFICATION}
-      className="create-project-btn"
-      onClick={props.customClickEvent}
-    >
-      Create Project
-    </Link>
-  );
+  if (props.taskId == 'IC')
+    return (
+      <Link
+        to={routes.CLASSIFICATION}
+        className="create-project-btn"
+        onClick={props.customClickEvent}
+      >
+        Create Project
+      </Link>
+    );
+  else if (props.taskId == 'OD')
+    return (
+      <Link to={routes.DETECTION} className="create-project-btn" onClick={props.customClickEvent}>
+        Create Project
+      </Link>
+    );
 }
 
 class CreateProject extends React.Component {
@@ -105,7 +112,10 @@ class CreateProject extends React.Component {
         <ProjectName customChangeEvent={this.setProjectName} />
         <SelectTask customChangeEvent={this.selectTask} />
         <SelectDirsButton customClickEvent={this.selectDirs} />
-        <CreateProjectButton customClickEvent={this.clickCreateProjectButton} />
+        <CreateProjectButton
+          customClickEvent={this.clickCreateProjectButton}
+          taskId={this.taskId}
+        />
       </div>
     );
   }

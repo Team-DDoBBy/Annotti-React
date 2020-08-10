@@ -13,11 +13,19 @@ const ClassificationPage = (props) => (
   </React.Suspense>
 );
 
+const LazyDetectionPage = React.lazy(() => import('./containers/DetectionPage'));
+const DetectionPage = (props) => (
+  <React.Suspense fallback={<h1>Loading...</h1>}>
+    <LazyDetectionPage {...props} />
+  </React.Suspense>
+);
+
 export default function Routes() {
   return (
     <App>
       <Switch>
         <Route path={routes.CLASSIFICATION} component={ClassificationPage} />
+        <Route path={routes.DETECTION} component={DetectionPage} />
         <Route path={routes.HOME} component={CreateProjectPage} />
       </Switch>
     </App>
